@@ -1,0 +1,137 @@
+<?php
+$form   =   $this->form;
+$form->prepare();
+$form->setAttributes(array(
+    'action' => '',
+    'method' => 'post'   
+));
+$formLabel  =   $this->plugin('formLabel');
+echo $this->form()->openTag($form);
+?>
+<?php
+$flash=$this->flashMessenger()
+    ->setMessageOpenFormat('<div%s>')
+    ->setMessageSeparatorString('')
+    ->setMessageCloseString('</div>');
+echo $flash->render('msg',array('alert', 'alert-dismissible alert-warning'));
+?>
+<div class="page-header">
+    <h1><?=$this->translate($this->titulo)?></h1>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <?=$this->formElement($form->get('actualizar'))?>
+    </div>
+    <div class="col-md-9">
+        <div class="col-md-6">
+            <?=$this->formElement($form->get('carta'))?>
+        </div>
+        <div class="col-md-6">
+            <?=$this->formElement($form->get('nueva_carta'))?>
+        </div>
+    </div>
+</div><br>
+<div class="row">
+    <div class="col-md-12">
+        <div class="table-responsive">
+            <table style="background:transparent;" class="table table-hover table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <th><?=$this->translate('Cantidad')?></th>
+                        <th><?=$this->translate('Nombre')?></th>
+                        <th><?=$this->translate('Trigger')?></th>
+                        <th><?=$this->translate('Grade/Skill')?></th>
+                        <th><?=$this->translate('Power')?></th>
+                        <th><?=$this->translate('Shield')?></th>
+                    </tr>
+                </thead>
+                <?php foreach($this->cartas as $var){?>
+                <tr>
+                    <td>
+                        <input min=0 max=4 style="width:50px;" class="form-control input-sm" id="focusedInput" name="<?=$var['cardID']?>" value="<?=$var['quantity']?>" type="number">
+                    </td>
+                    <?php $img = $var['name'];?>
+                    <td><a href="<?=$this->basePath()?>/modulos/cartas/detalle?id=<?=$var['cardID']?>" rel="popover" data-img="<?=$this->basePath()?>/public/img/cards/<?=$img?>.png"><?=$var['name']?></a></td>
+                    <td><?php if($var['triger'] == ''){ echo "-";}else{ echo $var['triger'];}?></td>
+                    <td><?=$var['grade_skill']?></td>
+                    <td><?=$var['power']?></td>
+                    <td><?php if($var['shield'] == ''){ echo "-";}else{ echo $var['shield'];}?></td>
+                </tr>
+                <?php } ?>
+            </table>
+        </div>
+    </div>
+</div><br>
+<div class="row">
+    <div class="col-md-12">
+        <?=$this->translate('Comentario')?>
+        <?=$this->formElement($form->get('deck_comment'))?>
+    </div>
+    <div class="col-md-5"></div>
+    <div class="col-md-2"><br>
+        <?=$this->formElement($form->get('actualizar_comentario'))?>
+    </div>
+</div>
+<?php echo $this->form()->closeTag();?>
+<script type="text/javascript" src="<?=$this->basePath()?>/public/js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+		CKEDITOR.replace( 'editor', {
+		toolbar: [
+			['Source','-','Save','NewPage','Preview','-','Templates'],
+			['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print', 'SpellChecker', 'Scayt'],
+			['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+			['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
+			'/',
+			['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+			['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
+			['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+			['Link','Unlink','Anchor'],
+			['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
+			'/',
+			['Styles','Format','Font','FontSize'],
+			['TextColor','BGColor'],
+			['Maximize', 'ShowBlocks','-','About','EqnEditor']
+		]
+		});
+		</script>
+<script>
+    $('a[rel=popover]').popover({
+        html: true,
+        trigger: 'hover',
+        placement: 'right',
+        content: function(){return '<img style="border-radius:20px;" width="90%" src="'+$(this).data('img') + '" />';}
+
+    });
+</script>
+    <script src="<?=$this->basePath()?>/public/js/jquery.textcomplete.js"></script>
+        <script>  
+        $('#carta').textcomplete([
+        { // tech companies
+            words: getcards(),
+            match: /\b(\w{2,})$/,
+            search: function (term, callback) {
+                callback($.map(this.words, function (word) {
+                    return word.indexOf(term) === 0 ? word : null;
+                }));
+            },
+            index: 1,
+            replace: function (word) {
+                return word;
+            }
+        }
+    ], {
+        onKeydown: function (e, commands) {
+            if (e.ctrlKey && e.keyCode === 74) { // CTRL-J
+                return commands.KEY_ENTER;
+            }
+        }
+    });
+    function getcards(){
+        var datos=<?=json_encode($this->allcards);?>;
+        var names = new Array();
+        for(x=0; x<datos.length;x++){
+            names[x] = datos[x]['name'];
+        }
+        return names;
+    }
+</script>

@@ -1,0 +1,55 @@
+<?php
+$form   =   $this->form;
+$form->prepare();
+$form->setAttributes(array(
+    'action' => '',
+    'method' => 'post'   
+));
+$formLabel  =   $this->plugin('formLabel');
+echo $this->form()->openTag($form);
+?>
+<?php
+$flash=$this->flashMessenger()
+    ->setMessageOpenFormat('<div%s>')
+    ->setMessageSeparatorString('')
+    ->setMessageCloseString('</div>');
+echo $flash->render('msg',array('alert', 'alert-dismissible alert-warning'));
+?>
+<div class="page-header">
+    <h1><?=$this->translate('Torneos')?></h1>
+</div>
+<div class="row">
+    <div class="col-md-3"><?=$this->translate('Torneo id')?><?=$this->formElement($form->get('id'))?></div> 
+    <div class="col-md-3"><?=$this->translate('Nombre del torneo')?><?=$this->formElement($form->get('name2'))?></div>        
+    <div class="col-md-3"><?=$this->translate('Cantidad de jugadores')?><?=$this->formElement($form->get('num_players2'))?></div>
+    <div class="col-md-3"><?=$this->translate('Fecha')?><?=$this->formElement($form->get('date2'))?></div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4" align="center"><br><?=$this->formElement($form->get('buscar_torneo'))?></div>
+    <div class="col-md-4"></div>
+</div>
+<div class="table-responsive">
+    <table style="background:transparent;" class="table table-hover table-striped table-condensed">
+        <thead>
+            <tr>
+                <th><?=$this->translate('Torneo id')?></th>
+                <th><?=$this->translate('Torneo')?></th>
+                <th><?=$this->translate('Jugadores')?></th>
+                <th><?=$this->translate('Fecha')?></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <?php foreach($this->tournaments as $var){?>
+        <tr>
+            <td><?=$var['id']?></td>
+            <td><a href="<?=$this->basePath()?>/modulos/torneos/ver/<?=$var['id']?>" target="_parent"><?=$var['name']?></a></td>
+            <td><?=$var['num_players']?></td>
+            <td><?=$var['date']?></td>
+            <td><a class="btn btn-default btn-sm" type="button" href="<?=$this->basePath()?>/modulos/admin/modificartorneo/<?=$var['id']?>"><?=$this->translate('Modificar')?></a></td>
+            <td><a class="btn btn-default btn-sm" type="button" href="<?=$this->basePath()?>/modulos/admin/eliminartorneo/<?=$var['id']?>"><?=$this->translate('Eliminar')?></a></td>
+        </tr>
+        <?php }?>
+    </table>
+</div>
+<?=$this->paginationControl($this->tournaments,'Sliding','numpaginacion',array('route' =>$this->route,'action'=>$this->action));?>
+<?php echo $this->form()->closeTag();?>

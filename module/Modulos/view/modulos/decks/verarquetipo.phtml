@@ -1,0 +1,92 @@
+<div class="page-header">
+    <h1>
+        <?php foreach($this->decks as $var){ echo $var['deck_archetype']."(".$this->cantidad['cantidad'].")"; break;}?>
+    </h1>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <div class="page-header"><h3><?=$this->translate('Decks')?></h3></div>
+        <div class="table-responsive">
+            <table style="background:transparent;" class="table table-hover table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <th><?=$this->translate('Deck')?></th>
+                        <th><?=$this->translate('Jugador')?></th>
+                        <th><?=$this->translate('Arquetipo')?></th>
+                        <th><?=$this->translate('Torneo')?></th>
+                        <th><?=$this->translate('Jugadores')?></th>
+                        <th><?=$this->translate('Posición')?></th>
+                        <th><?=$this->translate('Fecha')?></th>
+                        <th><?=$this->translate('Cant. Me gusta')?></th>
+                    </tr>
+                </thead>
+                <?php foreach($this->decks as $var){?>
+                <tr>
+                    <td><a href="<?=$this->basePath()?>/modulos/decks/ver/<?=$var['deck_id']?>"><?=$var['deck_name']?></a></td>
+                    <td><?=$var['deck_player']?></td>
+                    <td><?=$var['deck_archetype']?></td>
+                    <td><a href="<?=$this->basePath()?>/modulos/torneos/ver/<?=$var['tournament_id']?>"><?=$var['name']?></a></td>
+                    <td><?=$var['num_players']?></td>
+                    <td><?=$var['deck_place']?></td>
+                    <td><?=$var['date']?></td>
+                    <td><?=$var['likes']?></td>
+                </tr>
+                <?php }?>
+            </table>
+        </div>
+        <?=$this->paginationControl($this->decks,'Sliding','numpaginacion',array('route' =>$this->route,'action'=>$this->action));?>
+    </div>
+    <div class="col-md-4">
+        <div class="page-header"><h3><?=$this->translate('Grado 4 mas jugados')?></h3></div>
+        <?php foreach($this->grade4 as $var){ ?>
+        <?=$var['name']?>
+        <div class="progress">
+            <div class="progress-bar" style="width: <?=($var['cantidad']*100)/$this->allgrade4['cantidad']?>%;">
+                <?=$var['cantidad']?> <?=$this->translate('Copias')?> - <?=number_format(($var['cantidad']*100)/$this->allgrade4['cantidad'],2,".",",")?>%
+            </div>
+        </div>
+        <?php } ?>
+        <div class="page-header"><h3><?=$this->translate('Grado 3 mas jugados')?></h3></div>
+        <?php foreach($this->grade3 as $var){ ?>
+        <?=$var['name']?>
+        <div class="progress">
+            <div class="progress-bar" style="width: <?=($var['cantidad']*100)/$this->allgrade3['cantidad']?>%;">
+                <?=$var['cantidad']?> <?=$this->translate('Copias')?> - <?=number_format(($var['cantidad']*100)/$this->allgrade3['cantidad'],2,".",",")?>%
+            </div>
+        </div>
+        <?php } ?>
+        <div class="page-header"><h3><?=$this->translate('Grado 2 mas jugados')?></h3></div>
+        <?php foreach($this->grade2 as $var){ ?>
+        <?=$var['name']?>
+        <div class="progress">
+            <div class="progress-bar" style="width: <?=($var['cantidad']*100)/$this->allgrade2['cantidad']?>%;">
+                <?=$var['cantidad']?> <?=$this->translate('Copias')?> - <?=number_format(($var['cantidad']*100)/$this->allgrade3['cantidad'],2,".",",")?>%
+            </div>
+        </div>
+        <?php } ?>
+        <div class="page-header"><h3><?=$this->translate('Grado 1 mas jugados')?></h3></div>
+        <?php foreach($this->grade1 as $var){ ?>
+        <?=$var['name']?>
+        <div class="progress">
+            <div class="progress-bar" style="width: <?=($var['cantidad']*100)/$this->allgrade1['cantidad']?>%;">
+                <?=$var['cantidad']?> <?=$this->translate('Copias')?> - <?=number_format(($var['cantidad']*100)/$this->allgrade3['cantidad'],2,".",",")?>%
+            </div>
+        </div>
+        <?php } ?>
+
+
+    </div>
+</div>
+<script>
+    $('a[rel=popover]').popover({
+
+        html: true,
+
+        trigger: 'hover',
+
+        placement: 'bottom',
+
+        content: function(){return '<img width="90%" style="border-radius:20px;" src="'+$(this).data('img') + '" />';}
+
+    });
+</script>

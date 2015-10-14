@@ -1,0 +1,119 @@
+<?php echo $this->doctype(); ?>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <?php echo $this->headTitle(' '. $this->translate('Vgdecks'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+        <?php echo $this->headMeta()
+    ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+    ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+        ?>
+
+        <!-- Le styles -->
+        <?php echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/public/img/favicon.ico'))
+    ->prependStylesheet($this->basePath('public/css/style.css'))
+    ->prependStylesheet($this->basePath('public/css/footer-distributed.css'))
+    //->prependStylesheet($this->basePath('public/css/bootstrap-theme.min.css'))
+    ->prependStylesheet($this->basePath('public/css/bootstrap.css')) ?>
+
+        <!-- <link href="<?php echo $this->basePath()?>/css/style.css">
+<link href="<?php echo $this->basePath()?>/css/bootstrap-theme.min.css" rel="stylesheet">
+<link href="<?php echo $this->basePath()?>/css/bootstrap.min.css" rel="stylesheet"> --!>
+
+<!-- Scripts -->
+        <?php echo $this->headScript()
+    //->prependFile($this->basePath('public/js/custom.js'))
+    ->prependFile($this->basePath('public/js/bootstrap.js'))
+    ->prependFile($this->basePath('public/js/jquery-1.10.2.js'))
+    //->prependFile($this->basePath('public/js/jquery.min.js'))
+    ->prependFile($this->basePath('public/js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
+    ->prependFile($this->basePath('public/js/html5shiv.js'),   'text/javascript', array('conditional' => 'lt IE 9',))
+    ; ?>
+
+    </head>
+    <body  style="background-image:url(<?=$this->basePath()?>/public/img/bg/bg8.png); background-attachment: fixed; background-position: bottom right;">
+               <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="<?=$this->basePath()?>"><img src='<?=$this->basepath()?>/public/img/logo.png'></a>
+                </div>
+
+                <div class="collapse navbar-collapse"  id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?=$this->translate('Decks')?><span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="<?=$this->basePath()?>/modulos/decks/torneos"><?=$this->translate('Torneos')?></a></li>
+                                <li><a href="<?=$this->basePath()?>/modulos/decks/arquetipos"><?=$this->translate('Usuarios')?></a></li>
+                                <li><a href="<?=$this->basePath()?>/modulos/decks/buscar"><?=$this->translate('Busqueda Avanzada')?></a></li>
+                            </ul>
+                        </li>
+                        <li><a href="<?=$this->basePath()?>/modulos/cartas/buscar"><?=$this->translate('Cartas')?></a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?=$this->translate('Subir')?><span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="<?=$this->basePath()?>/modulos/torneos/agregar"><?=$this->translate('Torneo')?></a></li>
+                                <li><a href="<?=$this->basePath()?>/modulos/decks/agregar"><?=$this->translate('Mi deck')?></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="<?=$this->basePath()?>/modulos/about/index"><?=$this->translate('Sobre el sitio')?></a></li>
+                        <li><a href="<?=$this->basePath()?>/contacto"><?=$this->translate('Contacto')?></a></li>
+                        <?php if(!$this->zfcUserIdentity()): ?>
+                        <!-- display the login form -->
+                        <li><a href="<?=$this->basePath()?>/user/login"><?=$this->translate('Iniciar sesión')?></a></li>
+                        <?php else: ?>
+                        <!-- display the 'display name' of the user -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?=$this->translate($this->zfcUserIdentity()->getDisplayname())?><span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="<?=$this->basePath()?>/modulos/user/perfil/<?=$this->zfcUserIdentity()->getId()?>"><?=$this->translate('Perfil')?></a></li>
+                                <li><a href="<?=$this->basePath()?>/modulos/user/editar"><?=$this->translate('Configurar Perfil')?></a></li>
+                                <li><a href="<?=$this->basePath()?>/modulos/user/misdecks"><?=$this->translate('Mis decks')?></a></li>
+                                <li><a href="<?=$this->basePath()?>/user/logout"><?=$this->translate('Salir')?></a></li>
+                            </ul>
+                        </li>
+                        <?php endif?>
+                        <li>
+                            <form class="navbar-form navbar-left" action="<?=$this->basePath()?>/application/index/idioma" method="post">
+                                <!-- <div class="form-group">
+<input class="form-control" placeholder="Palabra clave" type="text">
+</div>
+<button type="button" class="btn btn-default">Buscar</button> -->
+                                <select name="idioma" class="form-control input-sm" onchange="document.forms[0].submit()">
+                                    <option disabled selected><?=$this->translate('Language')?></option>
+                                    <option value="es_ES"><?=$this->translate('Spanish')?></option>
+                                    <option value="us_US"><?=$this->translate('English')?></option>
+                                </select>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="col-md-2">
+        <ul class="nav nav-pills nav-stacked">
+            <li><a href="<?=$this->basePath()?>/modulos/admin/index">Inicio</a></li>
+            <li><a href="<?=$this->basePath()?>/modulos/admin/decks">Decks</a></li>
+            <li><a href="<?=$this->basePath()?>/modulos/admin/torneos">Torneos</a></li>
+            <li><a href="<?=$this->basePath()?>/modulos/admin/usuarios">Usuarios</a></li>
+        </ul>
+        </div>
+        <div class="container col-md-10">
+            <?php if (defined('RUNNING_FROM_ROOT')) {$this->plugin('basePath')->setBasePath($this->basePath().'/public');} ?>
+            <?php echo $this->content; ?>
+        <hr>
+        <footer>
+        </footer>
+              </div> <!-- /container -->
+
+        <?php echo $this->inlineScript() ?>
+    </body>
+</html>

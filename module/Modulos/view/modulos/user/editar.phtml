@@ -1,0 +1,46 @@
+<?php
+$form   =   $this->form;
+$form->prepare();
+$form->setAttributes(array(
+    'action' => '',
+    'method' => 'post'   
+));
+$formLabel  =   $this->plugin('formLabel');
+echo $this->form()->openTag($form);
+?>
+<?php
+    $flash=$this->flashMessenger()
+    ->setMessageOpenFormat('<div%s>')
+    ->setMessageSeparatorString('')
+    ->setMessageCloseString('</div>');
+echo $flash->render('msg',array('alert', 'alert-dismissible alert-warning'));
+?>
+<div class="page-header"><h1><?=$this->translate($this->titulo)?></h1></div>
+<div class="row">
+    <div class="col-md-2">
+        <img src="<?=$this->imagen?>" class="img-thumbnail" alt="Cinque Terre" width="100" height="100">
+    </div>
+    <div class="col-md-6">
+        <div class="col-md-12">
+            <?=$this->translate('Nickname')?><?=$this->formElement($form->get('username'))?>
+        </div>
+        <div class="col-md-12">
+            <?=$this->translate('Imagen Avatar')?><?=$this->formElement($form->get('imagen'))?>
+        </div>
+        <div class="col-md-12">
+            <?=$this->translate('Nombre')?><?=$this->formElement($form->get('display_name'))?>
+        </div>
+        <div class="col-md-12">
+            <?=$this->translate('¿Ocultar nombre?')?><br><?=$this->formElement($form->get('ver_name'))?><br>    
+        </div>
+        <div class="col-md-12">
+            <?=$this->translate('Email')?><?=$this->formElement($form->get('email'))?>
+        </div>
+        <div class="col-md-12">
+            <?=$this->translate('¿Ocultar email?')?><br><?=$this->formElement($form->get('ver_email'))?>
+        </div>
+        <div class="col-md-6"></div>
+        <div class="col-md-1"><?=$this->formElement($form->get('editar'))?></div>
+    </div>
+</div>
+<?php echo $this->form()->closeTag();?>

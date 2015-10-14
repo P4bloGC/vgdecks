@@ -1,0 +1,31 @@
+<?php
+$form   =   $this->form;
+$form->prepare();
+$form->setAttributes(array(
+    'action' => '',
+    'method' => 'post'   
+));
+$formLabel  =   $this->plugin('formLabel');
+echo $this->form()->openTag($form);
+?>
+<?php
+    $flash=$this->flashMessenger()
+    ->setMessageOpenFormat('<div%s>')
+    ->setMessageSeparatorString('')
+    ->setMessageCloseString('</div>');
+echo $flash->render('msg',array('alert', 'alert-dismissible alert-warning'));
+?>
+<div class="page-header"><h1><?=$this->translate($this->titulo)?></h1></div>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <?=$this->translate('Asunto')?>
+        <?=$this->formElement($form->get('asunto'))?>
+        <?=$this->translate('Email')?>
+        <?=$this->formElement($form->get('email_usuario'))?>
+        <?=$this->translate('Mensaje')?>
+        <?=$this->formElement($form->get('mensaje'))?><br>
+        <?=$this->formElement($form->get('enviar_mensaje'))?>
+    </div>
+</div>
+<?php echo $this->form()->closeTag();?>

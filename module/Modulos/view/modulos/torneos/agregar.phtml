@@ -1,0 +1,267 @@
+<?php
+$form   =   $this->form;
+$form->prepare();
+$form->setAttributes(array(
+    'action' => '',
+    'method' => 'post'   
+));
+$formLabel  =   $this->plugin('formLabel');
+echo $this->form()->openTag($form);
+?>
+<div class="page-header"><h1><?=$this->translate($this->titulo)?></h1></div>
+<div class="alert alert-dismissible alert-warning">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <h4><?=$this->translate('Recomendaciones')?></h4>
+    <ul>
+        <li><?=$this->translate('Agrege la cantidad de la carta junto con su nombre en cada línea.')?></li>
+        <li><?=$this->translate('Una vez ingresada las primeras letras de cada carta automáticamente aparecera un lista de sugerencias.')?></li>
+        <li><?=$this->translate('La lista del deck es sensible a mayúsculas y minúsculas.')?></li>
+        <li><?=$this->translate('Se recomienda ingresar cada carta una por una. Copiar y pegar de fuentes externas no garantiza que el nombre de las cartas sea el correcto.')?></li>
+    </ul><br>
+    <a href="<?=$this->basePath()?>/public/img/ejemplo.png" target="_blank"><?=$this->translate('Imagen de ejemplo')?></a>
+</div>
+<div class="row">
+    <div class="col-md-4"><?=$this->translate('Nombre del torneo')?><?=$this->formElement($form->get('name'))?></div>        
+    <div class="col-md-4"><?=$this->translate('Cantidad de jugadores')?><?=$this->formElement($form->get('num_players'))?></div>
+    <div class="col-md-4"><?=$this->translate('Fecha')?><?=$this->formElement($form->get('date'))?></div>
+
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="page-header"><h3><?=$this->translate('1ro')?></h3></div>
+        <?=$this->translate('Nombre del deck')?> <?=$this->formElement($form->get('deck_name1'))?>
+        <?=$this->translate('Nombre del jugador')?> <?=$this->formElement($form->get('deck_player1'))?>
+        <?=$this->translate('Arquetipo')?> <?=$this->formElement($form->get('archetype1'))?>
+        <?=$this->translate('Lista del deck')?> <?=$this->formElement($form->get('deck1'))?>
+    </div>
+    <div class="col-md-6">
+        <div class="page-header"><h3><?=$this->translate('2do')?></h3></div>
+        <?=$this->translate('Nombre del deck')?> <?=$this->formElement($form->get('deck_name2'))?>
+        <?=$this->translate('Nombre del jugador')?> <?=$this->formElement($form->get('deck_player2'))?>
+        <?=$this->translate('Arquetipo')?> <?=$this->formElement($form->get('archetype2'))?>
+        <?=$this->translate('Lista del deck')?> <?=$this->formElement($form->get('deck2'))?>
+    </div>
+    <div class="col-md-6">
+        <div class="page-header"><h3><?=$this->translate('3ro')?></h3></div>
+        <?=$this->translate('Nombre del deck')?> <?=$this->formElement($form->get('deck_name3'))?>
+        <?=$this->translate('Nombre del jugador')?> <?=$this->formElement($form->get('deck_player3'))?>
+        <?=$this->translate('Arquetipo')?> <?=$this->formElement($form->get('archetype3'))?>
+        <?=$this->translate('Lista del deck')?> <?=$this->formElement($form->get('deck3'))?>
+    </div>
+    <div class="col-md-6">
+        <div class="page-header"><h3><?=$this->translate('4to')?></h3></div>
+        <?=$this->translate('Nombre del deck')?> <?=$this->formElement($form->get('deck_name4'))?>
+        <?=$this->translate('Nombre del jugador')?> <?=$this->formElement($form->get('deck_player4'))?>
+        <?=$this->translate('Arquetipo')?> <?=$this->formElement($form->get('archetype4'))?>
+        <?=$this->translate('Lista del deck')?> <?=$this->formElement($form->get('deck4'))?>
+    </div>
+   <!-- <div class="col-md-3">
+        <div class="page-header"><h3><?=$this->translate('5to')?></h3></div>
+        <?=$this->translate('Nombre del deck')?> <?=$this->formElement($form->get('deck_name5'))?>
+        <?=$this->translate('Nombre del jugador')?> <?=$this->formElement($form->get('deck_player5'))?>
+        <?=$this->translate('Arquetipo')?> <?=$this->formElement($form->get('archetype5'))?>
+        <?=$this->translate('Lista del deck')?> <?=$this->formElement($form->get('deck5'))?>
+    </div>
+    <div class="col-md-3">
+        <div class="page-header"><h3><?=$this->translate('6to')?></h3></div>
+        <?=$this->translate('Nombre del deck')?> <?=$this->formElement($form->get('deck_name6'))?>
+        <?=$this->translate('Nombre del jugador')?> <?=$this->formElement($form->get('deck_player6'))?>
+        <?=$this->translate('Arquetipo')?> <?=$this->formElement($form->get('archetype6'))?>
+        <?=$this->translate('Lista del deck')?> <?=$this->formElement($form->get('deck6'))?>
+    </div>
+    <div class="col-md-3">
+        <div class="page-header"><h3><?=$this->translate('7mo')?></h3></div>
+        <?=$this->translate('Nombre del deck')?> <?=$this->formElement($form->get('deck_name7'))?>
+        <?=$this->translate('Nombre del jugador')?> <?=$this->formElement($form->get('deck_player7'))?>
+        <?=$this->translate('Arquetipo')?> <?=$this->formElement($form->get('archetype7'))?>
+        <?=$this->translate('Lista del deck')?> <?=$this->formElement($form->get('deck7'))?>
+    </div>
+    <div class="col-md-3">
+        <div class="page-header"><h3><?=$this->translate('8vo')?></h3></div>
+        <?=$this->translate('Nombre del deck')?> <?=$this->formElement($form->get('deck_name8'))?>
+        <?=$this->translate('Nombre del jugador')?> <?=$this->formElement($form->get('deck_player8'))?>
+        <?=$this->translate('Arquetipo')?> <?=$this->formElement($form->get('archetype8'))?>
+        <?=$this->translate('Lista del deck')?> <?=$this->formElement($form->get('deck8'))?>
+    </div> -->
+</div><br>     
+<div align="center"><?=$this->formElement($form->get('ingresar'))?></div>
+<?php echo $this->form()->closeTag();?>
+<script src="<?=$this->basePath()?>/public/js/jquery.textcomplete.js"></script>
+<script>  
+    $('#textarea1').textcomplete([
+        { // tech companies
+            words: getcards(),
+            match: /\b(\w{2,})$/,
+            search: function (term, callback) {
+                callback($.map(this.words, function (word) {
+                    return word.indexOf(term) === 0 ? word : null;
+                }));
+            },
+            index: 1,
+            replace: function (word) {
+                return word;
+            }
+        }
+    ], {
+        onKeydown: function (e, commands) {
+            if (e.ctrlKey && e.keyCode === 74) { // CTRL-J
+                return commands.KEY_ENTER;
+            }
+        }
+    });
+     $('#textarea2').textcomplete([
+        { // tech companies
+            words: getcards(),
+            match: /\b(\w{2,})$/,
+            search: function (term, callback) {
+                callback($.map(this.words, function (word) {
+                    return word.indexOf(term) === 0 ? word : null;
+                }));
+            },
+            index: 1,
+            replace: function (word) {
+                return word;
+            }
+        }
+    ], {
+        onKeydown: function (e, commands) {
+            if (e.ctrlKey && e.keyCode === 74) { // CTRL-J
+                return commands.KEY_ENTER;
+            }
+        }
+    });
+     $('#textarea3').textcomplete([
+        { // tech companies
+            words: getcards(),
+            match: /\b(\w{2,})$/,
+            search: function (term, callback) {
+                callback($.map(this.words, function (word) {
+                    return word.indexOf(term) === 0 ? word : null;
+                }));
+            },
+            index: 1,
+            replace: function (word) {
+                return word;
+            }
+        }
+    ], {
+        onKeydown: function (e, commands) {
+            if (e.ctrlKey && e.keyCode === 74) { // CTRL-J
+                return commands.KEY_ENTER;
+            }
+        }
+    });
+     $('#textarea4').textcomplete([
+        { // tech companies
+            words: getcards(),
+            match: /\b(\w{2,})$/,
+            search: function (term, callback) {
+                callback($.map(this.words, function (word) {
+                    return word.indexOf(term) === 0 ? word : null;
+                }));
+            },
+            index: 1,
+            replace: function (word) {
+                return word;
+            }
+        }
+    ], {
+        onKeydown: function (e, commands) {
+            if (e.ctrlKey && e.keyCode === 74) { // CTRL-J
+                return commands.KEY_ENTER;
+            }
+        }
+    });
+     $('#textarea5').textcomplete([
+        { // tech companies
+            words: getcards(),
+            match: /\b(\w{2,})$/,
+            search: function (term, callback) {
+                callback($.map(this.words, function (word) {
+                    return word.indexOf(term) === 0 ? word : null;
+                }));
+            },
+            index: 1,
+            replace: function (word) {
+                return word;
+            }
+        }
+    ], {
+        onKeydown: function (e, commands) {
+            if (e.ctrlKey && e.keyCode === 74) { // CTRL-J
+                return commands.KEY_ENTER;
+            }
+        }
+    });
+     $('#textarea6').textcomplete([
+        { // tech companies
+            words: getcards(),
+            match: /\b(\w{2,})$/,
+            search: function (term, callback) {
+                callback($.map(this.words, function (word) {
+                    return word.indexOf(term) === 0 ? word : null;
+                }));
+            },
+            index: 1,
+            replace: function (word) {
+                return word;
+            }
+        }
+    ], {
+        onKeydown: function (e, commands) {
+            if (e.ctrlKey && e.keyCode === 74) { // CTRL-J
+                return commands.KEY_ENTER;
+            }
+        }
+    });
+     $('#textarea7').textcomplete([
+        { // tech companies
+            words: getcards(),
+            match: /\b(\w{2,})$/,
+            search: function (term, callback) {
+                callback($.map(this.words, function (word) {
+                    return word.indexOf(term) === 0 ? word : null;
+                }));
+            },
+            index: 1,
+            replace: function (word) {
+                return word;
+            }
+        }
+    ], {
+        onKeydown: function (e, commands) {
+            if (e.ctrlKey && e.keyCode === 74) { // CTRL-J
+                return commands.KEY_ENTER;
+            }
+        }
+    });
+     $('#textarea8').textcomplete([
+        { // tech companies
+            words: getcards(),
+            match: /\b(\w{2,})$/,
+            search: function (term, callback) {
+                callback($.map(this.words, function (word) {
+                    return word.indexOf(term) === 0 ? word : null;
+                }));
+            },
+            index: 1,
+            replace: function (word) {
+                return word;
+            }
+        }
+    ], {
+        onKeydown: function (e, commands) {
+            if (e.ctrlKey && e.keyCode === 74) { // CTRL-J
+                return commands.KEY_ENTER;
+            }
+        }
+    });
+    function getcards(){
+        var datos=<?=json_encode($this->cards);?>;
+        var names = new Array();
+        for(x=0; x<datos.length;x++){
+            names[x] = datos[x]['name'];
+        }
+        return names;
+    }
+</script>

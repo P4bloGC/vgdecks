@@ -1,0 +1,48 @@
+<?php
+$form   =   $this->form;
+$form->prepare();
+$form->setAttributes(array(
+    'action' => '',
+    'method' => 'post'   
+));
+$formLabel  =   $this->plugin('formLabel');
+echo $this->form()->openTag($form);
+?>
+<div class="page-header">
+    <h1><?=$this->translate($this->titulo)?></h1>
+</div>
+<div class="row">
+    <div class="col-md-3"><?=$this->translate('Nombre del deck')?><?=$this->formElement($form->get('deck_name'))?></div>
+    <div class="col-md-3"><?=$this->translate('Jugador')?><?=$this->formElement($form->get('deck_player'))?></div>
+    <div class="col-md-3"><?=$this->translate('Carta')?><?=$this->formElement($form->get('card_name'))?></div>
+    <div class="col-md-3"><?=$this->translate('Arquetipo')?><?=$this->formElement($form->get('archetype'))?></div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4" align="center"><br><?=$this->formElement($form->get('buscar'))?></div>
+    <div class="col-md-4"></div>
+</div><br>
+<div class="table-responsive">
+    <table style="background:transparent;" class="table table-hover table-striped table-condensed">
+        <thead>
+            <tr>
+                <th><?=$this->translate('Deck')?></th>
+                <th><?=$this->translate('Jugador')?></th>
+                <th><?=$this->translate('Arquetipo')?></th>
+                <th><?=$this->translate('Fecha')?></th>
+                <th><?=$this->translate('Cant. Me gusta')?></th>
+                <th></th>
+            </tr>
+        </thead>
+        <?php foreach($this->decks as $var){?>
+        <tr>
+            <td><a href="<?=$this->basePath()?>/modulos/decks/ver/<?=$var['deck_id']?>"><?=$var['deck_name']?></a></td>
+            <td><?=$var['deck_player']?></td>
+            <td><?=$var['deck_archetype']?></td>
+            <td><?=$var['deck_date']?></td>
+            <td><?=$var['likes']?></td>
+            <td><a class="btn btn-default btn-sm" type="button" href="<?=$this->basePath()?>/modulos/user/modificardeck/<?=$var['deck_id']?>"><?=$this->translate('Modificar')?></a></td>
+        </tr>
+        <?php }?>
+    </table>
+</div>
+<?=$this->paginationControl($this->decks,'Sliding','numpaginacion',array('route' =>$this->route,'action'=>$this->action));?>
+<?=$this->form()->closeTag()?>

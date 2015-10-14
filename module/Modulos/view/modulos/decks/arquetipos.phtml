@@ -1,0 +1,26 @@
+<div class="page-header"><h1><?=$this->translate($this->titulo)?></h1></div>
+<div class="row">
+    <?php foreach($this->clans as $var) if($var['id_clan'] != 4){?>
+    <div class="col-md-3">
+        <div class="panel panel-default">
+            <div class="panel-heading"><a href="<?=$this->basePath()?>/modulos/decks/verarquetipocas/<?=$var['id_clan']?>"><?=$var['name_clan']?></a></div>
+            <div class="panel-body">
+                <?php $var['name_clan'] = str_replace('?', '%3F', $var['name_clan'])?>
+                <a href="<?=$this->basePath()?>/modulos/decks/verarquetipocas/<?=$var['id_clan']?>">
+                    <div style="background-image:url('<?=$this->basepath()?>/public/img/clans/<?=$var['name_clan']?>.jpg'); background-size: 100%; background-position: 0px -30px; height:200px; background-repeat: no-repeat;"></div>
+                </a>
+            </div>
+            <table class="table">
+                <tr>
+                    <th>Decks</th>
+                    <td><?=$var['cantidad']['cantidad']?></td>
+                </tr>
+                <tr>
+                    <th>%</th>
+                    <td><?=number_format(($var['cantidad']['cantidad']*100)/$this->total, 2, ".", ",")?>%</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <?php }?>
+</div>

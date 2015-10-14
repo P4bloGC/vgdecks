@@ -1,0 +1,19 @@
+<div class="table-responsive">
+    <table style="background:transparent;" class="table table-hover table-striped table-condensed">
+        <thead>
+            <tr>
+                <th><?=$this->translate('Torneo')?></th>
+                <th><?=$this->translate('Jugadores')?></th>
+                <th><?=$this->translate('Fecha')?></th>
+            </tr>
+        </thead>
+        <?php foreach($this->tournaments as $var){?>
+        <tr>
+            <td><a href="<?=$this->basePath()?>/modulos/torneos/ver/<?=$var['id']?>" target="_parent"><?=$var['name']?></a></td>
+            <td><?=$var['num_players']?></td>
+            <td><?=$var['date']?></td>
+        </tr>
+        <?php }?>
+    </table>
+</div>
+<?=$this->paginationControl($this->tournaments,'Sliding','numpaginacion',array('route' =>$this->route,'action'=>$this->action));?>

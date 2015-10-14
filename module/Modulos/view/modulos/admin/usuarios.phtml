@@ -1,0 +1,66 @@
+<?php
+$form   =   $this->form;
+$form->prepare();
+$form->setAttributes(array(
+    'action' => '',
+    'method' => 'post'   
+));
+$formLabel  =   $this->plugin('formLabel');
+echo $this->form()->openTag($form);
+?>
+<?php
+$flash=$this->flashMessenger()
+    ->setMessageOpenFormat('<div%s>')
+    ->setMessageSeparatorString('')
+    ->setMessageCloseString('</div>');
+echo $flash->render('msg',array('alert', 'alert-dismissible alert-warning'));
+?>
+<div class="page-header"><h1><?=$this->translate($this->titulo)?></h1></div>
+<div class="row">
+    <div class="col-md-1">
+        <?=$this->translate('User id')?><?=$this->formElement($form->get('user_id'))?>
+    </div>
+    <div class="col-md-2">
+        <?=$this->translate('Nickname')?><?=$this->formElement($form->get('username'))?>
+    </div>
+    <div class="col-md-2">
+        <?=$this->translate('Nombre')?><?=$this->formElement($form->get('display_name2'))?>
+    </div>
+    <div class="col-md-3">
+        <?=$this->translate('Email')?><?=$this->formElement($form->get('email2'))?>
+    </div>
+    <div class="col-md-2">
+        <?=$this->translate('Tipo de usuario')?><?=$this->formElement($form->get('id_type'))?>
+    </div>
+    <div class="col-md-2"><br><?=$this->formElement($form->get('buscar_usuario'))?></div>
+</div><br>
+<div class="row">
+<div class="col-md-12">
+    <div class="table-responsive">
+        <table style="background:transparent;" class="table table-hover table-striped table-condensed">
+            <thead>
+                <tr>
+                    <th><?=$this->translate('Usuario id')?></th>
+                    <th><?=$this->translate('Nickname')?></th>
+                    <th><?=$this->translate('Nombre')?></th>
+                    <th><?=$this->translate('Email')?></th>
+                    <th><?=$this->translate('Tipo de usuario')?></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <?php foreach($this->users as $var){?>
+            <tr>
+                <td><?=$var['user_id']?></td>
+                <td><a href="<?=$this->basePath()?>/modulos/user/perfil/<?=$var['user_id']?>" target="_parent"><?=$var['username']?></a></td>
+                <td><?=$var['display_name']?></td>
+                <td><?=$var['email']?></td>
+                <td><?=$var['type']?></td>
+                <td><a class="btn btn-default btn-sm" type="button" href="<?=$this->basePath()?>/modulos/admin/modificarusuario/<?=$var['user_id']?>"><?=$this->translate('Modificar')?></a></td>
+            </tr>
+            <?php }?>
+        </table>
+    </div>
+</div>
+    <?=$this->paginationControl($this->users,'Sliding','numpaginacion',array('route' =>$this->route,'action'=>$this->action));?>
+</div>
+<?php echo $this->form()->closeTag();?>

@@ -1,0 +1,43 @@
+<div class="page-header"><h1><?=$this->translate($this->titulo)?></h1></div>
+<div class="row">
+    <div class="col-md-7">
+        <ul class="nav nav-pills">
+            <li id=1><a href="<?=$this->basePath()?>/modulos/decks/arquetipos/1"><?=$this->translate('Ultimos 3 meses')?></a></li>
+            <li id=0><a href="<?=$this->basePath()?>/modulos/decks/arquetipos"><?=$this->translate('Ultimos 6 meses')?></a></li>
+            <li id=2><a href="<?=$this->basePath()?>/modulos/decks/arquetipos/2"><?=$this->translate('Ultimo año')?></a></li>
+            <li id=3><a href="<?=$this->basePath()?>/modulos/decks/arquetipos/3"><?=$this->translate('Todo el tiempo')?></a></li>
+        </ul>
+        <div>
+            <IFRAME src="<?=$this->basePath()?>/modulos/torneos/index" frameborder="No" allowtransparency="true" frameborder=0 width="100%" height="600"> </IFRAME>
+        </div>
+    </div>
+    <div class="col-md-5">  
+        <div class="page-header"><h3><?=$this->translate($this->subtitulo)?></h3></div>
+        <div class="btn-group btn-group-justified">
+            <a class="btn btn-default"> <b>1# <?=$this->tops[0]['tops'][0]['name_clan']?></b><br><?=$this->tops[0]['tops'][0]['tops']?> Tops</a>
+            <a class="btn btn-default"><b>2# <?=$this->tops[1]['tops'][0]['name_clan']?></b><br><?=$this->tops[1]['tops'][0]['tops']?> Tops</a>
+            <a class="btn btn-default"><b>3# <?=$this->tops[2]['tops'][0]['name_clan']?></b><br><?=$this->tops[2]['tops'][0]['tops']?> Tops</a>
+        </div>
+        <div class="page-header"><h3><?=$this->translate('Arquetipos')?></h3></div>
+        <ul class="list-group">
+            <?php foreach($this->clans as $var) if($var['id_clan'] != 4){?>
+            <li class="list-group-item">
+                <span class="badge"><?=$var['cantidad']['cantidad']?></span>
+                <a href="<?=$this->basePath()?>/modulos/decks/verarquetipo/<?=$var['id_clan']?>"><?=$var['name_clan']?></a>
+            </li>
+            <?php } ?>
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    window.onload = function(){
+        changeClass();
+    }
+
+    function changeClass()
+    {
+        var rango = <?=$this->rango?>;
+        var valor = document.getElementById(rango);
+        valor.setAttribute("class", "active");  
+    }
+</script>

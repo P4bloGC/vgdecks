@@ -1,0 +1,101 @@
+<?php
+$form   =   $this->form;
+$form->prepare();
+$form->setAttributes(array(
+    'action' => '',
+    'method' => 'post'   
+));
+$formLabel  =   $this->plugin('formLabel');
+echo $this->form()->openTag($form);
+?>
+<div class="page-header"><h1><?=$this->translate($this->titulo)?></h1></div>
+<div class="alert alert-dismissible alert-warning">
+    <button type="button" class="close" data-dismiss="alert">×</button>
+    <h4><?=$this->translate('Recomendaciones')?></h4>
+    <ul>
+        <li><?=$this->translate('Agrege la cantidad de la carta junto con su nombre en cada línea.')?></li>
+        <li><?=$this->translate('Una vez ingresada las primeras letras de cada carta automáticamente aparecera un lista de sugerencias.')?></li>
+        <li><?=$this->translate('La lista del deck es sensible a mayúsculas y minúsculas.')?></li>
+        <li><?=$this->translate('Se recomienda ingresar cada carta una por una. Copiar y pegar de fuentes externas no garantiza que el nombre de las cartas sea el correcto.')?></li>
+    </ul><br>
+    <a href="<?=$this->basePath()?>/public/img/ejemplo.png" target="_blank"><?=$this->translate('Imagen de ejemplo')?></a>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="col-md-12"> 
+            <?=$this->translate('Nombre del deck')?>
+            <?=$this->formElement($form->get('deck_name1'))?>
+        </div>
+        <div class="col-md-12"> 
+            <?=$this->translate('Nombre del jugador')?>
+            <?=$this->formElement($form->get('deck_player1'))?>
+        </div>
+        <div class="col-md-12"> 
+            <?=$this->translate('Arquetipo')?>
+            <?=$this->formElement($form->get('archetype1'))?>
+        </div>
+        <div class="col-md-12"> 
+            <?=$this->translate('Lista del deck')?>
+            <?=$this->formElement($form->get('deck1'))?>
+        </div>
+    </div>
+    <div class="col-md-6"> 
+        <?=$this->translate('Descripción del deck, ¿Como se juega?')?>
+        <?=$this->formElement($form->get('deck_comment1'))?>
+    </div>
+</div><br>
+<div align="center"><?=$this->formElement($form->get('ingresar_casual'))?></div>
+<?php echo $this->form()->closeTag();?>
+<script type="text/javascript" src="<?=$this->basePath()?>/public/js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+		CKEDITOR.replace( 'deck_comment1', {
+		toolbar: [
+			['Source','-','Save','NewPage','Preview','-','Templates'],
+			['Cut','Copy','Paste','PasteText','PasteFromWord','-','Print', 'SpellChecker', 'Scayt'],
+			['Undo','Redo','-','Find','Replace','-','SelectAll','RemoveFormat'],
+			['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
+			'/',
+			['Bold','Italic','Underline','Strike','-','Subscript','Superscript'],
+			['NumberedList','BulletedList','-','Outdent','Indent','Blockquote'],
+			['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+			['Link','Unlink','Anchor'],
+			['Image','Flash','Table','HorizontalRule','Smiley','SpecialChar','PageBreak'],
+			'/',
+			['Styles','Format','Font','FontSize'],
+			['TextColor','BGColor'],
+			['Maximize', 'ShowBlocks','-','About','EqnEditor']
+		]
+		});
+		</script>
+<script src="<?=$this->basePath()?>/public/js/jquery.textcomplete.js"></script>
+<script>  
+    $('#textarea1').textcomplete([
+        { // tech companies
+            words: getcards(),
+            match: /\b(\w{2,})$/,
+            search: function (term, callback) {
+                callback($.map(this.words, function (word) {
+                    return word.indexOf(term) === 0 ? word : null;
+                }));
+            },
+            index: 1,
+            replace: function (word) {
+                return word;
+            }
+        }
+    ], {
+        onKeydown: function (e, commands) {
+            if (e.ctrlKey && e.keyCode === 74) { // CTRL-J
+                return commands.KEY_ENTER;
+            }
+        }
+    });
+    function getcards(){
+        var datos=<?=json_encode($this->cards);?>;
+        var names = new Array();
+        for(x=0; x<datos.length;x++){
+            names[x] = datos[x]['name'];
+        }
+        return names;
+    }
+</script>

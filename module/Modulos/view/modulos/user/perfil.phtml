@@ -1,0 +1,119 @@
+
+<div class="page-header">
+    <h1>
+        <div class="table-responsive">
+        <table style="background:transparent;">
+            <tr>
+                <td><img src="<?=$this->imagen?>" class="img-thumbnail" alt="Cinque Terre" width="100" height="100"></td>
+                <td>&nbsp</td>
+                <td><?=$this->translate($this->titulo)?></td>
+                <td>&nbsp</td>
+            </tr>
+        </table>
+        </div>
+    </h1>
+</div>
+<div class="row">        
+    <div class="col-md-7">
+        <div class="page-header">
+            <h3><?=$this->translate('Mis decks')?><?='('.sizeof($this->decks).')'?></h3>
+        </div>
+        <div style="overflow-y: scroll; height:250px;" class="table-responsive">
+            <table style="background:transparent;" class="table table-hover table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <th><?=$this->translate('Deck')?></th>
+                        <th><?=$this->translate('Jugador')?></th>
+                        <th><?=$this->translate('Arquetipo')?></th>
+                        <th><?=$this->translate('Fecha')?></th>
+                    </tr>
+                </thead>
+                <?php foreach($this->decks as $var){?>
+                <tr>
+                    <td><a href="<?=$this->basePath()?>/modulos/decks/ver/<?=$var['deck_id']?>"><?=$var['deck_name']?></a></td>
+                    <td><?=$var['deck_player']?></td>
+                    <td><?=$var['deck_archetype']?></td>
+                    <td><?=$var['deck_date']?></td>
+                </tr>
+                <?php }?>
+            </table>
+        </div>
+        <div class="page-header">
+            <h3><?=$this->translate('Torneos')?><?='('.sizeof($this->tournaments).')'?></h3>
+        </div>
+        <div style="overflow-y: scroll; height:250px;" class="table-responsive">
+            <table style="background:transparent;" class="table table-hover table-striped table-condensed">
+                <thead>
+                    <tr>
+                        <th><?=$this->translate('Torneo')?></th>
+                        <th><?=$this->translate('Jugadores')?></th>
+                        <th><?=$this->translate('Fecha')?></th>
+                    </tr>
+                </thead>
+                <?php foreach($this->tournaments as $var3){?>
+                <tr>
+                    <td><a href="<?=$this->basePath()?>/modulos/torneos/ver/<?=$var3['id']?>"><?=$var3['name']?></a></td>
+                    <td><?=$var3['num_players']?></td>
+                    <td><?=$var3['date']?></td>
+                </tr>
+                <?php }?>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table style="background:transparent;" width="100%">
+                        <tr>
+                            <th><?=$this->translate("Nickname")?></th>
+                            <td>:</td>
+                            <td><a href="<?=$this->basePath()?>/modulos/user/perfil/<?=$var['user_id']?>"><?=$this->user['username']?></a></td>
+                        </tr>
+                        <tr>
+                            <th><?=$this->translate('Nombre')?></th><td>:</td><td><?=$this->translate($this->user['display_name'])?></td>
+                        </tr>
+                        <tr>
+                            <th><?=$this->translate('E-mail')?></th><td>:</td><td><?=$this->translate($this->user['email'])?></td>
+                        </tr>
+                        <tr>
+                            <th><?=$this->translate('Decks')?></th><td>:</td><td><?=sizeof($this->decks)?></td>
+                        </tr>
+                        <tr>
+                            <th><?=$this->translate('Torneos')?></th><td>:</td><td><?=sizeof($this->tournaments)?></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="page-header">
+            <h3><?=$this->translate('Estadísticas')?></h3>
+        </div>       
+        <canvas width="500" height="250" id="canvas"></canvas>         
+    </div>
+</div>
+<script type="text/javascript" src="<?=$this->basePath()?>/public/js/Chart.js"></script>
+<script>
+    var datos=<?=json_encode($this->clans);?>;
+    var labels = new Array();
+    var data = new Array();
+    for(x=0; x<datos.length;x++){
+        labels[x] = datos[x]['name_clan'];
+        data[x] = datos[x]['cantidad'];
+    }   
+    var RadarChart = {
+        labels: labels,
+        datasets: [{
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: data
+        }]
+    }
+
+    var myRadarChart = new 
+    Chart(document.getElementById("canvas").getContext("2d")).Line(RadarChart, {pointLabelFontSize : 13, pointLabelFontColor  : "#ffa45e"});
+</script>

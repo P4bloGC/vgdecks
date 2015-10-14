@@ -1,0 +1,285 @@
+<form method="post" action="">
+    <div class="page-header"><h1><?=$this->datos['deck_name']?></h1></div>
+    <?php
+    $flash=$this->flashMessenger()
+    ->setMessageOpenFormat('<div%s>')
+    ->setMessageSeparatorString('')
+    ->setMessageCloseString('</div>');
+echo $flash->render('msg',array('alert', 'alert-dismissible alert-warning'));
+    ?>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="well well-sm">
+                <a href="<?=$this->basePath()?>/modulos/user/perfil/<?=$datos['user_id']?>" class="pull-right">
+                    <img src="<?=$datos['imagen']?>" class="img-thumbnail" alt="Cinque Terre" width="60" height="58">
+                    <?=$this->translate('Enviado por')?> <b><?=$datos['username']?></b>
+                </a>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="table-responsive">
+                            <table style="background:transparent;">
+                                <tr>
+                                    <th><?=$this->translate('Deck')?></th><th>&nbsp;:&nbsp;</th><td><?=$this->datos['deck_name']?></td>
+                                </tr>
+                                <tr>
+                                    <th><?=$this->translate('Jugador')?></th><th>&nbsp;:&nbsp;</th><td><?=$this->datos['deck_player']?></td>
+                                </tr>
+                                <tr>
+                                    <th><?=$this->translate('Arquetipo')?></th><th>&nbsp;:&nbsp;</th><td><?=$this->datos['deck_archetype']?></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <?php if($this->otros[0]['deck_type'] == 2){?>
+                    <div class="col-md-4">
+                        <div class="table-responsive">
+                            <table style="background:transparent;">
+                                <tr>
+                                    <th>&nbsp; &nbsp;<?=$this->translate('Fecha')?></th><th>&nbsp;:&nbsp;</th><td><?=$this->datos['deck_date']?></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <?php } ?>
+                     <?php if($this->otros[0]['deck_type'] == 1){?>
+                    <div class="col-md-4">
+                        <div class="table-responsive">
+                            <table style="background:transparent;">
+                                <tr>
+                                    <th>&nbsp; &nbsp;<?=$this->translate('Posición')?></th><th>&nbsp;:&nbsp;</th><td><?=$this->datos['deck_place']?></td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp; &nbsp;<?=$this->translate('Jugadores')?></th><th>&nbsp;:&nbsp;</th>
+                                    <td><?=$this->datos['num_players']?></td>
+                                </tr>
+                                <tr>
+                                    <th>&nbsp; &nbsp;<?=$this->translate('Fecha')?></th><th>&nbsp;:&nbsp;</th>
+                                    <td><?=$this->datos['date']?></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <?php } ?>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Grade 0</th>
+                                    <th>Grade 1</th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>
+                                    <?php foreach($this->deck as $var){?>
+                                    <?php if($var['grade_skill'] == 'Grade 0 /  Boost'){?>
+                                    <a href="<?=$this->basePath()?>/modulos/cartas/detalle?id=<?=$var['card_id']?>" onMouseOver="vercard('<?php echo str_replace('"', '&#34;',$var['name']);?>')"><?=$var['quantity']?> <?=$var['name']?></a><br>
+                                    <?php } ?>
+                                    <?php } ?>
+                                </td>
+                                <td>
+                                    <?php foreach($this->deck as $var){?>
+                                    <?php if($var['grade_skill'] == 'Grade 1 /  Boost'){?>
+                                    <a href="<?=$this->basePath()?>/modulos/cartas/detalle?id=<?=$var['card_id']?>" onMouseOver="vercard('<?php echo str_replace('"', '&#34;',$var['name']);?>')"><?=$var['quantity']?> <?=$var['name']?></a><br>
+                                    <?php } ?>
+                                    <?php } ?>
+                                </td>
+                            </tr>
+                            <thead>
+                                <tr>
+                                    <th>Grade 2</th>
+                                    <th>Grade 3</th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td>
+                                    <?php foreach($this->deck as $var){?>
+                                    <?php if($var['grade_skill'] == 'Grade 2 /  Intercept'){?>
+                                    <a href="<?=$this->basePath()?>/modulos/cartas/detalle?id=<?=$var['card_id']?>" onMouseOver="vercard('<?php echo str_replace('"', '&#34;',$var['name']);?>')"><?=$var['quantity']?> <?=$var['name']?></a><br>
+                                    <?php } ?>
+                                    <?php } ?>
+                                </td>
+                                <td>
+                                    <?php $ef = ""; foreach($this->deck as $var){?>
+                                    <?php if($var['grade_skill'] == 'Grade 3 /  Twin Drive!!'){?>
+                                    <a href="<?=$this->basePath()?>/modulos/cartas/detalle?id=<?=$var['card_id']?>" onMouseOver="vercard('<?php echo str_replace('"','&#34;', $var['name'])?>')"><?=$var['quantity']?> <?=$var['name']?></a><br>
+                                    <?php } ?>
+                                    <?php } ?>
+                                </td>
+                            </tr>
+                            <thead>
+                                <tr>
+                                    <th colspan="2">G-Zone</th>
+                                </tr>
+                            </thead>
+                            <tr>
+                                <td colspan="2">
+                                    <?php foreach($this->deck as $var){?>
+                                    <?php if($var['grade_skill'] == 'Grade 4 /  Triple Drive!!!'){?>
+                                    <a href="<?=$this->basePath()?>/modulos/cartas/detalle?id=<?=$var['card_id']?>" onMouseOver="vercard('<?php echo str_replace('"', '&#34;',$var['name']);?>')"><?=$var['quantity']?> <?=$var['name']?></a><br>
+                                    <?php } ?>
+                                    <?php } ?>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="fb-share-button col-md-3" data-href="<?=$url?>" data-layout="button_count"></div>
+                    <div class="col-md-3">
+                        <script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script><g:plusone></g:plusone>
+                    </div>
+                    <div><a href="https://twitter.com/share" class="twitter-share-button" data-via="P4blo_GC">Tweet</a></div>
+                </div>
+            </div>
+            <?php if($this->otros[0]['deck_type'] == 1){?>
+            <div class="page-header">
+                <h3><?=$this->translate('Otros decks del torneo')?></h3>
+            </div>
+            <div class="table-responsive">
+                <table style="background:transparent;" class="table table-hover table-striped table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Deck</th>
+                            <th>Jugador</th>
+                            <th>Arquetipo</th>
+                            <th>Posición</th>
+                        </tr>
+                    </thead>
+                    <?php foreach($this->otros as $var) if($var['deck_id'] != $this->id){?>
+                    <tr>
+                        <td><a href="<?=$this->basePath()?>/modulos/decks/ver/<?=$var['deck_id']?>"><?=$var['deck_name']?></a></td>
+                        <td><?=$var['deck_player']?></td>
+                        <td><a href="<?=$this->basePath()?>/modulos/decks/verarquetipo/<?=$var['id_clan']?>"><?=$var['deck_archetype']?></a></td>
+                        <td><?=$var['deck_place']?></td>
+                    </tr>
+                    <?php }?>
+                </table>
+            </div>
+            <?php }else{?>
+            <div style="height:300;" class="well">
+                <?=$this->datos['deck_comment']?>
+            </div>
+            <?php }?>
+        </div>
+        <div class="col-md-4">
+            <div class="well well-sm" align="center">
+                <a class="btn btn-default btn-lg" onclick="document.forms[1].submit();">
+                    <span class="glyphicon btn-glyphicon glyphicon-thumbs-up img-circle text-primary"></span>
+                    <?=$this->translate('Me gusta')?> (<?=$this->datos['likes']?>)
+                </a>
+            </div>
+            <div class="well" align="center" id="tblDatos">
+                <img width="250" style='border-radius:20px;' src="<?=$this->basePath()?>/public/img/cards/Vanguard.jpg">    
+            </div>
+            <div class="page-header">
+                <h3><?=$this->translate('Estadísticas de grados')?></h3>
+            </div>
+            <canvas id="canvas"></canvas>
+            <div class="page-header">
+                <h3><?=$this->translate('Estadísticas de triggers')?></h3>
+            </div>
+            <canvas id="canvas2"></canvas>
+        </div>
+    </div>
+</form><br>
+<?php $url="http://".$_SERVER['HTTP_HOST'].":".$_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI'];?>
+<div class="col-md-12">
+<div class="fb-comments" data-href="<?=$url?>" data-numposts="5" data-width="100%" data-colorscheme="dark"></div>
+</div>
+<!--Scripts-->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.4&appId=1582540375324289";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+<script type="text/javascript">
+    function vercard(id)
+    {
+        var img = "<?=$this->basePath()?>/public/img/cards/"+id+".png";
+        var tablaDatos= $("#tblDatos");
+        tablaDatos.html("<img style='border-radius:20px;' width='250' src='"+img+"'>");   
+    }
+</script>
+<script type="text/javascript" src="<?=$this->basePath()?>/public/js/Chart.js"></script>
+<script>
+    var datos=<?=json_encode($this->grade_curve);?>;
+    var labels = new Array();
+    var data = new Array();
+    for(x=0; x<datos.length;x++){
+        if(datos[x]['grade_skill'] == 'Grade 1 /  Boost'){
+            labels[x] = 'Grade 1';    
+        }
+        if(datos[x]['grade_skill'] == 'Grade 2 /  Intercept'){
+            labels[x] = 'Grade 2';    
+        }
+        if(datos[x]['grade_skill'] == 'Grade 3 /  Twin Drive!!'){
+            labels[x] = 'Grade 3';    
+        }
+        if(datos[x]['grade_skill'] == 'Grade 4 /  Triple Drive!!!'){
+            labels[x] = 'Grade 4';    
+        }
+        if(datos[x]['grade_skill'] == 'Grade 0 /  Boost'){
+            labels[x] = 'Grade 0';    
+        }
+
+        data[x] = datos[x]['cantidad'];
+    }   
+    var RadarChart = {
+        labels: labels,
+        datasets: [{
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: data
+        }]
+    }
+    var myRadarChart = new 
+    Chart(document.getElementById("canvas").getContext("2d")).Bar(RadarChart, {pointLabelFontSize : 13, pointLabelFontColor  : "#ffa45e"});
+</script>
+<script>
+    var datos=<?=json_encode($this->triggers);?>;
+    var cartas = new Array();
+    var cantidad = new Array();
+    for(x=0; x<datos.length;x++){
+        if(datos[x]['triger'] == '+5000 Power , Critical'){
+            cartas[x] = 'Critical';    
+        }
+        if(datos[x]['triger'] == '+5000 Power , Draw'){
+            cartas[x] = 'Draw';    
+        }
+        if(datos[x]['triger'] == '+5000 Power , Heal'){
+            cartas[x] = 'Heal';    
+        } 
+        if(datos[x]['triger'] == '+5000 Power , Stand'){
+            cartas[x] = 'Stand';    
+        } 
+        cantidad[x] = datos[x]['cantidad'];
+    }
+    cantidad[x] = 0;
+    var RadarChart = {
+        labels: cartas,
+        datasets: [{
+            fillColor: "rgba(151,187,205,0.2)",
+            strokeColor: "rgba(151,187,205,1)",
+            pointColor: "rgba(151,187,205,1)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#fff",
+            pointHighlightStroke: "rgba(151,187,205,1)",
+            data: cantidad
+        }]
+    }
+    var myRadarChart = new 
+    Chart(document.getElementById("canvas2").getContext("2d")).Line(RadarChart, {pointLabelFontSize : 13, pointLabelFontColor  : "#ffa45e"});
+</script>

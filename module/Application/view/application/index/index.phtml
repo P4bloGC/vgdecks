@@ -1,0 +1,161 @@
+<?php  
+$flash=$this->flashMessenger()
+    ->setMessageOpenFormat('<div%s>')
+    ->setMessageSeparatorString('')
+    ->setMessageCloseString('</div>');
+echo $flash->render('msg',array('alert', 'alert-dismissible alert-warning'));
+?>
+<div class="page-header">
+    <img src='<?=$this->basepath()?>/public/img/logo2.png'>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#home" data-toggle="tab"><?=$this->translate('Decks populares')?></a></li>
+            <li><a href="#profile" data-toggle="tab"><?=$this->translate('Decks recientes')?></a></li>
+            <li><a href="#torneos" data-toggle="tab"><?=$this->translate('Torneos recientes')?></a></li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade active in" id="home">
+                <div class="table-responsive">
+                    <table style="background:transparent;" class="table table-hover table-striped table-condensed">
+                        <thead>
+                            <tr>
+                                <th><?=$this->translate('Decks')?></th>
+                                <th><?=$this->translate('Jugador')?></th>
+                                <th><?=$this->translate('Arquetipo')?></th>
+                                <th><?=$this->translate('Fecha')?></th>
+                                <th><?=$this->translate('Cant. Me gusta')?></th>
+                            </tr>
+                        </thead>
+                        <?php foreach($this->populares as $var){?>
+                        <tr>
+                            <td><a href="<?=$this->basePath()?>/modulos/decks/ver/<?=$var['deck_id']?>"><?=$var['deck_name']?></a></td>
+                            <td><?=$var['deck_player']?></td>
+                            <td><?=$var['deck_archetype']?></td>
+                            <td><?=$var['deck_date']?></td>
+                            <td><?=$var['likes']?></td>
+                        </tr>
+                        <?php }?>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="profile">
+                <div class="table-responsive">
+                    <table style="background:transparent;" class="table table-hover table-striped table-condensed">
+                        <thead>
+                            <tr>
+                                <th><?=$this->translate('Decks')?></th>
+                                <th><?=$this->translate('Jugador')?></th>
+                                <th><?=$this->translate('Arquetipo')?></th>
+                                <th><?=$this->translate('Fecha')?></th>
+                                <th><?=$this->translate('Cant. Me gusta')?></th>
+                            </tr>
+                        </thead>
+                        <?php foreach($this->decks as $var){?>
+                        <tr>
+                            <td><a href="<?=$this->basePath()?>/modulos/decks/ver/<?=$var['deck_id']?>"><?=$var['deck_name']?></a></td>
+                            <td><?=$var['deck_player']?></td>
+                            <td><?=$var['deck_archetype']?></td>
+                            <td><?=$var['deck_date']?></td>
+                            <td><?=$var['likes']?></td>
+                        </tr>
+                        <?php }?>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="torneos">
+                <div class="table-responsive">
+                    <table style="background:transparent;" class="table table-hover table-striped table-condensed">
+                        <thead>
+                            <tr>
+                                <th><?=$this->translate('Torneo')?></th>
+                                <th><?=$this->translate('Jugadores')?></th>
+                                <th><?=$this->translate('Fecha')?></th>
+                            </tr>
+                        </thead>
+                        <?php foreach($this->tournaments as $var){?>
+                        <tr>
+                            <td><a href="<?=$this->basePath()?>/modulos/torneos/ver/<?=$var['id']?>"><?=$var['name']?></a></td>
+                            <td><?=$var['num_players']?></td>
+                            <td><?=$var['date']?></td>
+                        </tr>
+                        <?php }?>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="page-header">
+            <h3><?=$this->translate('Usuarios mas activos')?></h3>
+        </div>
+        <?php foreach($this->users as $var){?>
+        <div class="well well-sm">
+            <div class="row">
+                <div class="col-md-2">
+                    <a href="<?=$this->basePath()?>/modulos/user/perfil/<?=$var['user_id']?>" >
+                        <img src="<?=$var['imagen']?>" class="img-thumbnail" width="60">
+                    </a>
+                </div>
+                <div class="col-md-10">
+                    <div class="col-md-6">
+                        <table style="background:transparent;">
+                            <tr>
+                                <th><?=$this->translate('Nickname')?></th>
+                                <th>&nbsp;:&nbsp;</th>
+                                <td><a href="<?=$this->basePath()?>/modulos/user/perfil/<?=$var['user_id']?>" >
+                                    <?php if(empty($var['username'])){
+    echo $this->translate('DESCONOCIDO');
+}else{
+    echo $var['username'];
+}?>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th><?=$this->translate('Nombre')?></th>
+                                <th>&nbsp;:&nbsp;</th>
+                                <td><?php if($var['ver_name'] == 0){echo $this->translate('CONFIDENCIAL');}else{ echo $var['display_name'];}?></td>
+                            </tr>
+                            <tr>
+                                <th><?=$this->translate('E-mail')?></th>
+                                <th>&nbsp;:&nbsp;</th>
+                                <td><?php if($var['ver_name'] == 0){echo $this->translate('CONFIDENCIAL');}else{ echo $var['display_name'];}?></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <table style="background:transparent;"> 
+                            <tr>
+                                <th><?=$this->translate('Decks')?></th>
+                                <th>&nbsp;:&nbsp;</th>
+                                <td><?=$var['decks']?></td>
+                            </tr>
+                            <tr>
+                                <th><?=$this->translate('Torneos')?></th>
+                                <th>&nbsp;:&nbsp;</th>
+                                <td><?=$var['tournaments']?></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php } ?>
+        <div class="page-header">
+            <h3><?=$this->translate('Facebook')?></h3>
+        </div>
+        <div class="fb-page" data-href="http://www.facebook.com/vgdecks" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="true"><div class="fb-xfbml-parse-ignore"><blockquote cite="http://www.facebook.com/vgdecks"><a href="http://www.facebook.com/vgdecks">Vgdecks</a></blockquote></div></div>
+    </div>
+</div>
+<!--<script type="text/javascript" src="/vanguard/public/js/jquery-bgswitcher-master/jquery.bgswitcher.js"></script> -->
+<script>
+    $(document).ready(function(){
+        $('#carousel-home').carousel(
+            'interval' : 3000,
+            'pause' : 'hover',
+        );
+    });
+
+</script>

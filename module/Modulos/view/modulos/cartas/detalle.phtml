@@ -1,0 +1,95 @@
+<?php
+$form   =   $this->form;
+$form->prepare();
+$form->setAttributes(array(
+    'action' => $this->basePath().'/modulos/decks/buscar',
+    'method' => 'post',
+));
+$formLabel  =   $this->plugin('formLabel');
+echo $this->form()->openTag($form);
+?>
+<div class="page-header"><h1><?=$this->titulo?></h1></div>
+<div class="row">
+
+    <div class="well col-md-4">
+        <?php $img = $this->card['name']; $img = str_replace('%','%25', $img);?>
+        <img style="border-radius:20px;" width="100%" src="<?=$this->basePath()?>/public/img/cards/<?=$img?>.png">
+    </div>
+    <div class="col-md-8">
+        <div class="table-responsive">
+            <table style="background:transparent;"; class="table table-hover table-striped table-condensed">
+                <tr>
+                    <th>Card Name</th>
+                    <td colspan="3"><?=$this->card['name']?></td>
+                </tr>
+                <tr>
+                    <th>Card No.</th>
+                    <td><?=$this->card['cardID']?></td>
+                    <th>Unit</th>
+                    <td><?=$this->card['uclass']?></td>
+                </tr>
+                <tr>
+                    <th>Grade/Skill</th>
+                    <td><?=$this->card['grade_skill']?></td>
+                    <th>Nation</th>
+                    <td><img src="<?=$this->basePath()?>/public/img/nations/<?=$this->card['nation']?>.gif">&nbsp<?=$this->card['nation']?></td>
+                </tr>
+                <tr>
+                    <th>Clan</th>
+                    <td><?=$this->card['clan']?></td>
+                    <th>Race</th>
+                    <td><?=$this->card['race']?></td>	
+                </tr>
+                <tr>
+                    <th>Trigger</th>
+                    <td><?=$this->card['triger']?></td>
+                    <th>Critical</th>
+                    <td><?=$this->card['critical']?></td>
+                </tr>
+                <tr>
+                    <th>Power</th>
+                    <td><?=$this->card['power']?></td>
+                    <th>Shield</th>
+                    <td><?=$this->card['shield']?></td>
+                </tr>
+                <tr>
+                    <th>Effect</th>
+                    <td colspan="3"><?=$this->card['effect']?></td>
+                </tr>
+                <tr>
+                    <th>Flavor Text</th>
+                    <td colspan="3"><?=$this->card['text']?></td>
+                </tr>
+                <tr>
+                    <th>Illustrator</th>
+                    <td colspan="3"><?=$this->card['illustrator']?></td>
+                </tr>
+            </table>
+        </div>
+        
+        <div class="well well-sm">
+            <div class="row">
+        <div class="col-md-4" align="center"><div class="fb-share-button" data-href="<?=$url?>" data-layout="button_count"></div></div>
+        <div class="col-md-4" align="center"><a href="https://twitter.com/share" class="twitter-share-button" data-via="P4blo_GC">Tweet</a></div>
+        <div class="col-md-4" align="center"><script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+            <g:plusone></g:plusone></div>
+        </div>
+        </div>
+        <div class="col-md-2"><input type="submit" class="btn btn-default" name="buscar" value="Buscar decks con esta carta"></div>
+    </div>
+</div>
+<div style="display: none;"><?=$this->formElement($form->get('card_name'))?></div>
+<?php $url="http://".$_SERVER['HTTP_HOST'].":".$_SERVER['SERVER_PORT'].$_SERVER['REQUEST_URI'];?>
+<div class="fb-comments" data-href="<?=$url?>" data-numposts="5" data-width="100%" data-colorscheme="dark"></div>
+<?php echo $this->form()->closeTag();?>
+<!--Scripts-->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.4&appId=1582540375324289";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>

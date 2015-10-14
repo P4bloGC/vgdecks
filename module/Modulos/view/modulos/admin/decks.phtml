@@ -1,0 +1,65 @@
+<?php
+$form   =   $this->form;
+$form->prepare();
+$form->setAttributes(array(
+    'action' => '',
+    'method' => 'post'   
+));
+$formLabel  =   $this->plugin('formLabel');
+echo $this->form()->openTag($form);
+?>
+<?php
+$flash=$this->flashMessenger()
+    ->setMessageOpenFormat('<div%s>')
+    ->setMessageSeparatorString('')
+    ->setMessageCloseString('</div>');
+echo $flash->render('msg',array('alert', 'alert-dismissible alert-warning'));
+?>
+<div class="page-header"><h1><?=$this->translate($this->titulo)?></h1></div>
+<div class="row">
+    <div class="col-md-3"><?=$this->translate('Deck id')?><?=$this->formElement($form->get('deck_id'))?></div>
+    <div class="col-md-3"><?=$this->translate('Nombre del deck')?><?=$this->formElement($form->get('deck_name'))?></div>
+    <div class="col-md-3"><?=$this->translate('Torneo')?><?=$this->formElement($form->get('name2'))?></div>
+    <div class="col-md-3"><?=$this->translate('Jugador')?><?=$this->formElement($form->get('deck_player'))?></div>
+    <div class="col-md-8"><?=$this->translate('Carta')?><?=$this->formElement($form->get('card_name'))?></div>
+    <div class="col-md-4"><?=$this->translate('Arquetipo')?><?=$this->formElement($form->get('archetype'))?></div>  
+    <div class="col-md-4"></div>
+    <div class="col-md-4" align="center"><br><?=$this->formElement($form->get('buscar'))?></div>
+    <div class="col-md-4"></div>
+</div><br>
+<div class="table-responsive">
+    <table style="background:transparent;" class="table table-hover table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>Deck id</th>
+                <th><?=$this->translate('Deck')?></th>
+                <th><?=$this->translate('Jugador')?></th>
+                <th><?=$this->translate('Arquetipo')?></th>
+                <th><?=$this->translate('Torneo')?></th>
+                <th><?=$this->translate('Jugadores')?></th>
+                <th><?=$this->translate('Posición')?></th>
+                <th><?=$this->translate('Fecha')?></th>
+                <th><?=$this->translate('Cant. Me gusta')?></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <?php foreach($this->decks as $var){?>
+        <tr>
+            <td><?=$var['deck_id']?></td>
+            <td><a href="<?=$this->basePath()?>/modulos/decks/ver/<?=$var['deck_id']?>"><?=$var['deck_name']?></a></td>
+            <td><?=$var['deck_player']?></td>
+            <td><?=$var['name_clan']?></td>
+            <td><?php if(empty($var['name'])){echo "-";}else{echo $var['name'];}?></td>
+            <td><?php if(empty($var['num_players'])){echo "-";}else{echo $var['num_players'];}?></td>
+            <td><?php if($var['deck_place'] == 0){echo "-";}else{echo $var['deck_place'];}?></td>
+            <td><?php if(empty($var['deck_date'])){ echo $var['date'];}else{ echo $var['deck_date'];}?></td>
+            <td><?=$var['likes']?></td>
+            <td><a class="btn btn-default btn-sm" type="button" href="<?=$this->basePath()?>/modulos/admin/modificardeck/<?=$var['deck_id']?>"><?=$this->translate('Modificar')?></a></td>
+            <td><a class="btn btn-default btn-sm" type="button" href="<?=$this->basePath()?>/modulos/admin/eliminardeck/<?=$var['deck_id']?>"><?=$this->translate('Eliminar')?></a></td>
+        </tr>
+        <?php }?>
+    </table>
+</div>
+<?=$this->paginationControl($this->decks,'Sliding','numpaginacion',array('route' =>$this->route,'action'=>$this->action));?>
+<?=$this->form()->closeTag()?>

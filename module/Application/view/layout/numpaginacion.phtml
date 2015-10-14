@@ -1,0 +1,34 @@
+<div class="paginationControl">
+    <ul class="pagination">
+        <li><a onclick="document.forms[1].action=this.href; document.forms[1].submit(); return false;" href="<?php echo $this->url($this->route, array('action'=>$this->action,'id' => $this->first)); ?>">«</a></li> 
+        <!-- Previous id link -->
+        <?php if (isset($this->previous)){ ?>
+        <li><a onclick="document.forms[0].action=this.href; document.forms[0].submit(); return false;" href="<?php echo $this->url($this->route, array('action'=>$this->action,'id' => $this->previous)); ?>">
+            &lt; <?=$this->translate('Anterior')?>
+            </a></li>
+        <?php }else{ ?>
+        <li><a class="disabled"><?=$this->translate('Anterior')?></a></li>
+        <?php } ?>
+
+        <!-- Numbered id links -->
+        <?php foreach ($this->pagesInRange as $id){ ?>
+        <?php if ($id != $this->current){ ?>
+        <li><a onclick="document.forms[1].action=this.href; document.forms[1].submit(); return false;" href="<?php echo $this->url($this->route, array('action'=>$this->action,'id' => $id)); ?>">
+            <?php echo $id; ?>
+            </a></li>
+        <?php }else{
+    echo "<li><a>".$id."</a><li>";
+}
+                                                  } ?>
+
+        <!-- Next id link -->
+        <?php if (isset($this->next)){ ?>
+        <li><a class="siguiente" href="<?php echo $this->url($this->route, array('action'=>$this->action,'id' => $this->next));?>"  onclick="document.forms[1].action=this.href; document.forms[1].submit(); return false;">
+            <?=$this->translate('Siguiente')?> &gt;
+            </a></li>
+        <?php }else{ ?>
+        <li><a class="disabled"><?=$this->translate('Siguiente')?></a></li>
+        <?php } ?>
+        <li><a href="<?php echo $this->url($this->route, array('action'=>$this->action,'id' => $this->last));?>" onclick="document.forms[1].action=this.href; document.forms[1].submit(); return false;" >»</a></li>
+    </ul>
+</div>
