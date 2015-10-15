@@ -5,4 +5,6 @@ Vgdecks es una página de origen chileno que nace con el objetivo de ser una bas
 
 El sitio esta escrito bajo lenguaje PHP, Zend Framework 2, Bootstrap y Jquery, . La información de las cartas y los decks se almacenan en una base de datos Mysql
 
+http://vgdecks.pgcdev.net
+
 
